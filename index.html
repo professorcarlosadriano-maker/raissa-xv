@@ -8,8 +8,38 @@
   <style>
     :root{--rosa:#d99aa5;--rosa2:#f7e7e7;--verde:#9eaa83;--verde2:#e9eddf;--texto:#5c594c;--branco:#fffdfb}
     *{box-sizing:border-box} html{scroll-behavior:smooth} body{margin:0;font-family:Georgia,"Times New Roman",serif;color:var(--texto);background:var(--branco)}
-    button,a{font:inherit}.cover{min-height:100svh;background:#f4e5e2 url("capa-abertura-raissa.png") center/cover no-repeat;display:grid;place-items:end center;padding:0 24px 5.5vh;text-align:center;position:relative}
-    .open{width:min(72vw,420px);height:90px;border:0;background:transparent;color:transparent;cursor:pointer;border-radius:999px;-webkit-tap-highlight-color:transparent}
+    button,a{font:inherit}.cover{
+      min-height:100svh;
+      width:100%;
+      background:
+        linear-gradient(135deg,#f6e6e7 0%,#e9f2e8 100%);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+      cursor:pointer;
+    }
+    .cover::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:url("capa-abertura-raissa.png") center center / contain no-repeat;
+    }
+    .open{
+      position:absolute;
+      inset:0;
+      width:100%;
+      height:100%;
+      border:0;
+      background:transparent;
+      color:transparent;
+      cursor:pointer;
+      z-index:2;
+      -webkit-tap-highlight-color:transparent;
+    }
     main{display:none}.hero,.section{padding:72px 24px;text-align:center}.hero{background:linear-gradient(180deg,#f9eceb,#fffdfb)}
     .eyebrow{letter-spacing:.22em;text-transform:uppercase;font-size:.78rem;color:#788267}.xv{font-size:clamp(5rem,26vw,9rem);line-height:.8;color:#c88692;margin:20px 0 10px;font-weight:400}
     h1{font-weight:400;font-size:clamp(2.3rem,10vw,4rem);margin:0;color:#657052}.script{font-style:italic}.details{font-size:1.05rem;line-height:1.8;margin:26px auto 0;max-width:520px}
@@ -24,7 +54,11 @@
     .gallery figure:hover img{transform:scale(1.025)}
     footer{padding:55px 24px;text-align:center;background:#f5e4e5;color:#77705f}.small{font-size:.85rem;opacity:.8;line-height:1.6}.music{position:fixed;right:16px;bottom:16px;z-index:4;width:48px;height:48px;border:0;border-radius:50%;background:#fff;color:#8a956f;box-shadow:0 5px 20px #0002;display:none;cursor:pointer}
     @media(max-width:480px){.gallery{grid-template-columns:1fr 1fr}.count{gap:5px}.count div{padding:13px 2px}.count strong{font-size:1.25rem}}
-  </style>
+  
+    @media (max-width:600px){
+      .cover::before{background-size:contain;}
+    }
+    </style>
 </head>
 <body>
 <section class="cover" id="cover" onclick="abrirConvite()" role="button" aria-label="Abrir convite de XV anos de Raissa Forte">
@@ -87,10 +121,18 @@
   <footer><div class="xv" style="font-size:4rem">XV</div><div class="script" style="font-size:2rem">Raissa Forte</div><p>30 • 10 • 2026</p></footer>
 </main>
 <button class="music" id="musicBtn" title="Música" onclick="toggleMusic()">♫</button>
-<audio id="audio" loop></audio>
+<audio id="audio" src="musica-raissa.mp3" loop preload="auto"></audio>
 
 <script>
-function abrirConvite(){document.getElementById('cover').style.display='none';document.getElementById('convite').style.display='block';document.getElementById('musicBtn').style.display='block';window.scrollTo(0,0)}
+function abrirConvite(){
+      document.getElementById('cover').style.display='none';
+      document.getElementById('convite').style.display='block';
+      document.getElementById('musicBtn').style.display='block';
+      const a=document.getElementById('audio');
+      a.volume=0.45;
+      a.play().catch(()=>{});
+      window.scrollTo(0,0);
+    }
 const festa=new Date('2026-10-30T20:00:00-03:00');
 function tick(){let x=festa-new Date(); if(x<0)x=0; d.textContent=Math.floor(x/86400000);h.textContent=Math.floor(x%86400000/3600000);m.textContent=Math.floor(x%3600000/60000);s.textContent=Math.floor(x%60000/1000)} tick();setInterval(tick,1000);
 function salvarData(){
@@ -98,6 +140,11 @@ function salvarData(){
  const u='https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent('XV — Raissa Forte')+'&dates='+start+'/'+end+'&location='+encodeURIComponent("Martha’s Buffet Conceito, Av. Bezerra de Menezes, 531, Fortaleza - CE")+'&details='+encodeURIComponent('Celebração dos XV anos de Raissa Forte.');
  window.open(u,'_blank');
 }
-function toggleMusic(){const a=document.getElementById('audio'); if(!a.src){alert('A música será adicionada quando vocês escolherem a faixa.');return} a.paused?a.play():a.pause()}
+function toggleMusic(){
+      const a=document.getElementById('audio');
+      const b=document.getElementById('musicBtn');
+      if(a.paused){a.play();b.textContent='♫';}
+      else{a.pause();b.textContent='▶';}
+    } a.paused?a.play():a.pause()}
 </script>
 </body></html>

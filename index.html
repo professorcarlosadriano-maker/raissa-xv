@@ -125,14 +125,24 @@
 
 <script>
 function abrirConvite(){
-      document.getElementById('cover').style.display='none';
-      document.getElementById('convite').style.display='block';
-      document.getElementById('musicBtn').style.display='block';
-      const a=document.getElementById('audio');
-      a.volume=0.45;
-      a.play().catch(()=>{});
-      window.scrollTo(0,0);
-    }
+  const cover = document.getElementById('cover');
+  const convite = document.getElementById('convite');
+  const musicBtn = document.getElementById('musicBtn');
+  cover.style.display = 'none';
+  convite.style.display = 'block';
+  musicBtn.style.display = 'block';
+  window.scrollTo(0,0);
+
+  const a = document.getElementById('audio');
+  a.volume = 0.45;
+  const tentativa = a.play();
+  if (tentativa && typeof tentativa.catch === 'function') {
+    tentativa.catch(() => {
+      musicBtn.textContent = '▶';
+      musicBtn.title = 'Toque para iniciar a música';
+    });
+  }
+}
 const festa=new Date('2026-10-30T20:00:00-03:00');
 function tick(){let x=festa-new Date(); if(x<0)x=0; d.textContent=Math.floor(x/86400000);h.textContent=Math.floor(x%86400000/3600000);m.textContent=Math.floor(x%3600000/60000);s.textContent=Math.floor(x%60000/1000)} tick();setInterval(tick,1000);
 function salvarData(){
@@ -145,6 +155,6 @@ function toggleMusic(){
       const b=document.getElementById('musicBtn');
       if(a.paused){a.play();b.textContent='♫';}
       else{a.pause();b.textContent='▶';}
-    } a.paused?a.play():a.pause()}
+    }
 </script>
 </body></html>

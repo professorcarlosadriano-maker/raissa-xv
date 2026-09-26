@@ -1,0 +1,21 @@
+CONVITE DIGITAL — XV RAISSA FORTE
+
+Arquivos:
+- index.html: convite completo
+- capa-abertura-raissa.png: nova arte da página inicial
+- capa-raissa.png: arte floral original
+
+COMO PUBLICAR GRATUITAMENTE NO GITHUB PAGES
+1. Crie/acesse sua conta no GitHub.
+2. Crie um repositório público, por exemplo: raissa-xv.
+3. Envie index.html e capa-raissa.png para a raiz do repositório.
+4. Vá em Settings > Pages.
+5. Em Build and deployment, selecione Deploy from a branch.
+6. Selecione main e / (root), depois Save.
+7. O GitHub exibirá o endereço público do convite.
+
+Próximas personalizações:
+- galeria já preenchida com as duas fotos enviadas;
+- adicionar a música escolhida;
+- informar dress code;
+- preencher gostos da debutante.
